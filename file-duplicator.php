@@ -65,7 +65,7 @@ function file_duplicator_admin() {
 <?php if (!empty($_POST['newFile'])) { 
 	$newFile = $_POST['newFile'];
 	?>
-	<div class="updated fade"><p><strong><?php print $newFile . '.php created. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>'; ?></strong></p></div>  
+	<div class="updated fade"><p><strong><?php print $newFile . ' created. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>  
 <?php } ?>
 
 
