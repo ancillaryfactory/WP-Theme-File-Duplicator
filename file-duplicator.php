@@ -4,15 +4,12 @@
 Plugin Name: Template File Duplicator
 Plugin URI: 
 Description: Clone template filea from the WP backend
-Version: 0.5
+Version: 0.7
 Author: Jon Schwab
 Author URI: http://www.ancillaryfactory.com
 License: GPL2
 
 
-
-To do:
-Populate a dropdown with a list of all files in the template directory
 
 
 
@@ -101,6 +98,7 @@ function file_duplicator_admin() {
 	<input type="checkbox" name="addTemplateID" id="addTemplateID"  checked="checked" />&nbsp;
 	<label for="addTemplateID"><strong>Add template name header</strong></label>
 	
+	<br/>
 	
 	<div id="templateNameWrapper">
 		<br/>
@@ -108,7 +106,7 @@ function file_duplicator_admin() {
 		<input type="text" name="newTemplateName" id="newTemplateName" style="font-size:16px;padding:5px;width:250px" >
 	</div>
 	
-	<br/><br/>
+	<br/>
 	
 	<label for="newFile"><strong>New filename:</strong></label><br/>
 	<input type="text" name="newFile" id="newFile" style="font-size:16px;padding:5px;text-align:right;width:250px" value=".php"/>
@@ -125,7 +123,6 @@ function file_duplicator_admin() {
 		jQuery("#currentFile option[value='page.php']").attr('selected','selected');
 		
 		jQuery('#addTemplateID').click(function() {
-			// If checked
 			if (jQuery("#addTemplateID").is(":checked"))
 			{
 				jQuery("#templateNameWrapper").show("fast");
