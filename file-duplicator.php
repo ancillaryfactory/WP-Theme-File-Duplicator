@@ -40,7 +40,7 @@ function file_duplicator_settings_link($links) {
 
  
 $plugin = plugin_basename(__FILE__); 
-add_filter("plugin_action_links_$plugin", 'file-duplicator_admin_actions' );
+add_filter("plugin_action_links_$plugin", 'duplicator_admin_actions' );
 
 
 function duplicator_admin_actions() {
