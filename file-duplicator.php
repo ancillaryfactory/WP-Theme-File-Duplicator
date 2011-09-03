@@ -3,9 +3,9 @@
 
 Plugin Name: Template File Duplicator
 Plugin URI: 
-Description: 
-Version: 0.1
-Author: 
+Description: Clone template filea from the WP backend
+Version: 0.5
+Author: Jon Schwab
 Author URI: http://www.ancillaryfactory.com
 License: GPL2
 
@@ -47,7 +47,8 @@ add_filter("plugin_action_links_$plugin", 'file-duplicator_admin_actions' );
 
 
 function duplicator_admin_actions() {
-	$page = add_menu_page( "File Duplicator", "File Duplicator", "edit_posts", "duplicator", "file_duplicator_admin", "", 35 ); 
+	//$page = add_menu_page( "File Duplicator", "File Duplicator", "edit_posts", "duplicator", "file_duplicator_admin", "", 35 ); 
+	$page = add_submenu_page( 'themes.php', 'Add Page Template', 'Add Page Template', 'edit_themes', 'copy_theme_file', 'file_duplicator_admin' );
 }
 
 add_action('admin_menu', 'duplicator_admin_actions');
@@ -58,7 +59,6 @@ if (isset($_POST['newFile'])) {
 
 
 function file_duplicator_admin() {   
-
 
 ?>
 <!-- Success Messages -->
@@ -75,29 +75,88 @@ function file_duplicator_admin() {
 
 <div class="wrap"> 
   <div id="icon-plugins" class="icon32" style="float:left"></div>
-<h2>New copy of Page.php</h2>
-
-<pre><?php // print_r($_POST); ?></pre>
+<h2>Add new page template</h2>
 
 
-<form id="duplicateFile" method="post" action="admin.php?page=duplicator" style="padding:45px">
+
+
+<form id="duplicateFile" method="post" action="admin.php?page=copy_theme_file" style="padding:45px">
+	 
+	<label for="currentFile"><strong>Template file to copy:</strong></label><br/>
+	<select name="currentFile" id="currentFile">
+		<?php 
+		$files = scandir(TEMPLATEPATH);
+		foreach ($files as $file) {
+			if ( !is_dir($file) ) {
+				echo '<option value=' . $file . '>' . $file . '</option>';
+			}
+		}
+		
+		?>
+	</select>
+	<pre><?php // print_r($files); ?></pre>
 	
 	<br/>
-	<label for="newFile"><strong>New template name</strong> <em>(Copy of page.php)</em> </label><br/>
+	
+	<input type="checkbox" name="addTemplateID" id="addTemplateID"  checked="checked" />&nbsp;
+	<label for="addTemplateID"><strong>Add template name header</strong></label>
+	
+	
+	<div id="templateNameWrapper">
+		<br/>
+		<label for="newTemplateName"><strong>New template name:</strong></label><br/>
+		<input type="text" name="newTemplateName" id="newTemplateName" style="font-size:16px;padding:5px;width:250px" >
+	</div>
+	
+	<br/><br/>
+	
+	<label for="newFile"><strong>New filename:</strong></label><br/>
 	<input type="text" name="newFile" id="newFile" style="font-size:16px;padding:5px;text-align:right;width:250px" value=".php"/>
+	
+	<br/><br/>
 	
 	<input type="submit" name="duplicateFileSubmit" value="Make a new file" class="button-primary" style="position:relative;top:-2px"/>
 
 </form>
 </div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#currentFile option[value='page.php']").attr('selected','selected');
+		
+		jQuery('#addTemplateID').click(function() {
+			// If checked
+			if (jQuery("#addTemplateID").is(":checked"))
+			{
+				jQuery("#templateNameWrapper").show("fast");
+			} else {   
+				jQuery("#templateNameWrapper").hide("fast");
+			}
+		});
+		
+	});
+</script>
+
+
+
 <?php } 
 
 
 function duplicationProcess() {
 	
-	$templateDirectory = TEMPLATEPATH . '/page.php';
-	$newFile = $_POST['newFile']; 
+	$newTemplateName = trim($_POST['newTemplateName']);
+	$templateIdentifier = '<?php
+/*
+Template Name: '. $newTemplateName . '
+*/
+?>
+
+';
 	
+
+	$newFile = trim($_POST['newFile']); 
+	$fileToCopy = $_POST['currentFile'];
+	$templateDirectory = TEMPLATEPATH . '/'. $fileToCopy;
 	
 	
 	$newFilePath = TEMPLATEPATH . '/' . $newFile;
@@ -108,6 +167,11 @@ function duplicationProcess() {
 	fclose($currentFile);
 	
 	$newTemplateFile = fopen($newFilePath,"w");
+	
+	if ( isset($_POST['addTemplateID']) ) {  // only write identifier if checkbox is checked
+		fwrite($newTemplateFile, $templateIdentifier);
+	}
+	
 	fwrite($newTemplateFile, $pageTemplate);
 	fclose($newTemplateFile);
 	
