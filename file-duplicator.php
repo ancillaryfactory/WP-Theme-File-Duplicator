@@ -3,7 +3,7 @@
 
 Plugin Name: Template File Duplicator
 Plugin URI: 
-Description: Clone template filea from the WP backend
+Description: Clone template files from the WP backend
 Version: 0.7
 Author: Jon Schwab
 Author URI: http://www.ancillaryfactory.com
@@ -74,9 +74,6 @@ function file_duplicator_admin() {
   <div id="icon-plugins" class="icon32" style="float:left"></div>
 <h2>Add new page template</h2>
 
-
-
-
 <form id="duplicateFile" method="post" action="admin.php?page=copy_theme_file" style="padding:45px">
 	 
 	<label for="currentFile"><strong>Template file to copy:</strong></label><br/>
@@ -85,7 +82,7 @@ function file_duplicator_admin() {
 		$files = scandir(TEMPLATEPATH);
 		foreach ($files as $file) {
 			if ( preg_match( '(\.php$|\.css$|\.js$)', $file) ) {
-				echo '<option value=' . $file . '>' . $file . '</option>';
+				echo '<option value="' . $file . '">' . $file . '</option>';
 			}
 		}
 		
