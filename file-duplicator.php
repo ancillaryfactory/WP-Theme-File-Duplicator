@@ -84,7 +84,7 @@ function file_duplicator_admin() {
 		<?php 
 		$files = scandir(TEMPLATEPATH);
 		foreach ($files as $file) {
-			if ( !is_dir($file) ) {
+			if ( preg_match( '(\.php$|\.css$|\.js$)', $file) ) {
 				echo '<option value=' . $file . '>' . $file . '</option>';
 			}
 		}
