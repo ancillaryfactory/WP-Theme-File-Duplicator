@@ -4,7 +4,7 @@
 Plugin Name: Template File Duplicator
 Plugin URI: 
 Description: Clone template files from the WP backend
-Version: 0.7
+Version: 0.9
 Author: Jon Schwab
 Author URI: http://www.ancillaryfactory.com
 License: GPL2
@@ -60,7 +60,7 @@ function file_duplicator_admin() {
 ?>
 <!-- Success Messages -->
 <?php if (!empty($_POST['newFile'])) { 
-	$newFile = $_POST['newFile'];
+	$newFile = str_replace(' ', '-', $_POST['newFile']);
 	?>
 	<div class="updated fade"><p><strong><?php print $newFile . ' created. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>  
 <?php } ?>
@@ -88,9 +88,8 @@ function file_duplicator_admin() {
 		
 		?>
 	</select>
-	<pre><?php // print_r($files); ?></pre>
 	
-	<br/>
+	<br/><br/>
 	
 	<input type="checkbox" name="addTemplateID" id="addTemplateID"  checked="checked" />&nbsp;
 	<label for="addTemplateID"><strong>Add template name header</strong></label>
@@ -137,7 +136,7 @@ function file_duplicator_admin() {
 
 
 function duplicationProcess() {
-	
+	  
 	$newTemplateName = trim($_POST['newTemplateName']);
 	$templateIdentifier = '<?php
 /*
@@ -146,9 +145,9 @@ Template Name: '. $newTemplateName . '
 ?>
 
 ';
+	$newFile = str_replace(' ', '-', $_POST['newFile']);
+	$newFile = filter_var($newFile, FILTER_SANITIZE_URL);
 	
-
-	$newFile = trim($_POST['newFile']); 
 	$fileToCopy = $_POST['currentFile'];
 	$templateDirectory = TEMPLATEPATH . '/'. $fileToCopy;
 	
