@@ -3,7 +3,7 @@
 
 Plugin Name: Template File Duplicator
 Plugin URI: 
-Description: Clone template files from the WP backend
+Description: Clone template files from the WP backend. Go to Appearance -> Add Page Template
 Version: 0.9
 Author: Jon Schwab
 Author URI: http://www.ancillaryfactory.com
