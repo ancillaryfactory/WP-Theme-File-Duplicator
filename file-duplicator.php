@@ -30,18 +30,8 @@ Copyright 2011    (email : jsschwab@aoa.org)
 
 */
 
-// Add settings link on plugin page
-
-function file_duplicator_settings_link($links) { 
-  $settings_link = '<a href="admin.php?page=duplicator">Settings</a>'; 
-  array_unshift($links, $settings_link); 
-  return $links; 
-}
-
  
 $plugin = plugin_basename(__FILE__); 
-add_filter("plugin_action_links_$plugin", 'duplicator_admin_actions' );
-
 
 function duplicator_admin_actions() {
 	//$page = add_menu_page( "File Duplicator", "File Duplicator", "edit_posts", "duplicator", "file_duplicator_admin", "", 35 ); 
