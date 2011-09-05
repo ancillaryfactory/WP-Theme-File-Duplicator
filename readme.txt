@@ -23,19 +23,12 @@ and will be automatically recognized as a new page template in the post editor.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
+1. Upload `file-duplicator.php` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Go to Appearance -> Add Page Template NOTE: If you are using a child theme, the new theme file will be in the parent theme folder
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
-
-An answer to that question.
 
 
 == Screenshots ==
