@@ -4,7 +4,7 @@
 Plugin Name: Theme File Duplicator
 Plugin URI: http://wordpress.org/extend/plugins/theme-file-duplicator/
 Description: Clone template files from the WP backend. Go to Appearance -> Add Page Template
-Version: 1.0
+Version: 1.1
 Author: Jon Schwab
 Author URI: http://www.ancillaryfactory.com
 License: GPL2
@@ -96,7 +96,7 @@ function file_duplicator_admin() {
 	
 	<label for="newFile"><strong>New filename:</strong></label><br/>
 	<input type="text" name="newFile" id="newFile" style="font-size:16px;padding:5px;text-align:right;width:250px" value=".php"/>
-	<br/><em style="color:#444">If a child theme is currently active, this file will be placed in the parent theme's  folder.</em><br/>
+	<!--<br/><em style="color:#444">If a child theme is currently active, this file will be placed in the parent theme's  folder.</em><br/>-->
 	
 	<br/><br/>
 	
@@ -143,7 +143,7 @@ Template Name: '. $newTemplateName . '
 	$templateDirectory = TEMPLATEPATH . '/'. $fileToCopy;
 	
 	
-	$newFilePath = TEMPLATEPATH . '/' . $newFile;
+	$newFilePath = STYLESHEETPATH . '/' . $newFile;
 
 	
 	$currentFile = fopen($templateDirectory,"r");
