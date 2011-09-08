@@ -3,14 +3,14 @@ Contributors: rockgod100
 Tags: theme, template, admin
 Requires at least: 3.0
 Tested up to: 3.2
-Stable tag: 1.0
+Stable tag: 1.1
 
-Clone an existing template file from the Wordpress admin area. Go to Appearance -> Add Page Template
+Clone an existing template file from the Wordpress admin area. 
+Go to Appearance -> Add Page Template
 
 == Description ==
 
-This is a small utility that allows theme authors to clone an existing template file, to avoid having to download, rename and re-upload new files via FTP. Optionally, a user can add a template name, so that the new file will begin with
-
+Clone an existing template file without uploading new files via FTP. Optionally, a user can add a template name, so that the new file will begin with
 `
 <?php
 /*
@@ -39,3 +39,6 @@ and will be automatically recognized as a new page template in the post editor.
 
 = 1.0 =
 * Initial release
+
+= 1.1 =
+* New files are now added to STYLESHEETPATH, for compatibility with child themes
