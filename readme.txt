@@ -25,7 +25,7 @@ and will be automatically recognized as a new page template in the post editor.
 
 1. Upload `file-duplicator.php` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Go to Appearance -> Add Page Template NOTE: If you are using a child theme, the new theme file will be in the parent theme folder
+1. Go to Appearance -> Add Page Template 
 
 == Frequently Asked Questions ==
 
