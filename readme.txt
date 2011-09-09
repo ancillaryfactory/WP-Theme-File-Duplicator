@@ -23,7 +23,7 @@ and will be automatically recognized as a new page template in the post editor.
 
 == Installation ==
 
-1. Upload `file-duplicator.php` to the `/wp-content/plugins/` directory
+1. Upload `file-duplicator` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Go to Appearance -> Add Page Template 
 

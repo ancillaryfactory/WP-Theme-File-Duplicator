@@ -46,13 +46,14 @@ if (isset($_POST['newFile'])) {
 
 
 function file_duplicator_admin() {   
+	$theme_data = get_theme_data(get_stylesheet_uri());
 
 ?>
 <!-- Success Messages -->
 <?php if (!empty($_POST['newFile'])) { 
 	$newFile = str_replace(' ', '-', $_POST['newFile']);
 	?>
-	<div class="updated fade"><p><strong><?php print $newFile . ' created. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>  
+	<div class="updated fade"><p><strong><?php print $newFile . ' added to ' . $theme_data['Title'] . ' theme. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>  
 <?php } ?>
 
 
@@ -61,11 +62,11 @@ function file_duplicator_admin() {
 
 
 <div class="wrap"> 
-  <div id="icon-plugins" class="icon32" style="float:left"></div>
+  <div id="icon-edit-pages" class="icon32" style="float:left"></div>
 <h2>Add new page template</h2>
 
-<form id="duplicateFile" method="post" action="admin.php?page=copy_theme_file" style="padding:45px">
-	 
+<form id="duplicateFile" method="post" action="admin.php?page=copy_theme_file" style="padding:45px 10px">
+	
 	<label for="currentFile"><strong>Template file to copy:</strong></label><br/>
 	<select name="currentFile" id="currentFile">
 		<?php 
@@ -79,10 +80,14 @@ function file_duplicator_admin() {
 		?>
 	</select>
 	
+	<?php if ( !empty($theme_data['Template']) ) {   // check for parent theme ?> 
+		&nbsp;<em>(from <?php print ucfirst($theme_data['Template']); ?>)</em>
+	<?php } ?>
+	
 	<br/><br/>
 	
 	<input type="checkbox" name="addTemplateID" id="addTemplateID"  checked="checked" />&nbsp;
-	<label for="addTemplateID"><strong>Add template name header</strong></label>
+	<label for="addTemplateID"><strong>Add custom page template header</strong>&nbsp; <a href="http://codex.wordpress.org/Pages#Creating_Your_Own_Page_Templates" style="font-size:10px" target="_blank">What's this?</a></label>
 	
 	<br/>
 	
