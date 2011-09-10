@@ -40,12 +40,11 @@ function duplicator_admin_actions() {
 add_action('admin_menu', 'duplicator_admin_actions');
 
 if (isset($_POST['newFile'])) {
-	add_action('admin_init', 'duplicationProcess');
+	add_action('admin_footer', 'duplicationProcess');
 }
 
 
 function file_duplicator_admin() {   
-	$theme_data = get_theme_data(get_stylesheet_uri());
 
 ?>
 <!-- Success Messages -->
@@ -53,7 +52,7 @@ function file_duplicator_admin() {
 	$newFile = str_replace(' ', '-', $_POST['newFile']);
 	$newFile = filter_var($newFile, FILTER_SANITIZE_URL);
 	?>
-	<div class="updated fade"><p><strong><?php print $newFile . ' added to ' . $theme_data['Title'] . ' theme. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>  
+	<!-- <div class="updated fade"><p><strong><?php print $newFile . ' added to ' . $theme_data['Title'] . ' theme. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>  -->
 <?php } ?>
 
 
@@ -143,13 +142,12 @@ function file_duplicator_admin() {
 	});
 </script>
 
-
-
 <?php } 
 
 
 function duplicationProcess() {
-	  
+	
+	$theme_data = get_theme_data(get_stylesheet_uri()); 
 	$newTemplateName = trim($_POST['newTemplateName']);
 	$templateIdentifier = '<?php
 /*
@@ -178,7 +176,14 @@ Template Name: '. $newTemplateName . '
 		fwrite($newTemplateFile, $templateIdentifier);
 	}
 	
-	fwrite($newTemplateFile, $pageTemplate);
+	$written = fwrite($newTemplateFile, $pageTemplate);
 	fclose($newTemplateFile);
+	
+	// success/error message
+	if ( $written != false ) { ?>
+		<div class="updated fade"><p><strong><?php print $newFile . ' added to ' . $theme_data['Title'] . ' theme. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>
+	<?php } else { ?>
+		<div class="error"><p><strong>ERROR: Unable to create new theme file</strong></p></div>
+	<?php } 
 	
 }
