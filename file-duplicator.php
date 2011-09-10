@@ -34,7 +34,6 @@ Copyright 2011    (email : jsschwab@aoa.org)
 $plugin = plugin_basename(__FILE__); 
 
 function duplicator_admin_actions() {
-	//$page = add_menu_page( "File Duplicator", "File Duplicator", "edit_posts", "duplicator", "file_duplicator_admin", "", 35 ); 
 	$page = add_submenu_page( 'themes.php', 'Add Page Template', 'Add Page Template', 'edit_themes', 'copy_theme_file', 'file_duplicator_admin' );
 }
 
@@ -52,6 +51,7 @@ function file_duplicator_admin() {
 <!-- Success Messages -->
 <?php if (!empty($_POST['newFile'])) { 
 	$newFile = str_replace(' ', '-', $_POST['newFile']);
+	$newFile = filter_var($newFile, FILTER_SANITIZE_URL);
 	?>
 	<div class="updated fade"><p><strong><?php print $newFile . ' added to ' . $theme_data['Title'] . ' theme. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>  
 <?php } ?>
@@ -101,7 +101,7 @@ function file_duplicator_admin() {
 	
 	<label for="newFile"><strong>New filename:</strong></label><br/>
 	<input type="text" name="newFile" id="newFile" style="font-size:16px;padding:5px;text-align:right;width:250px" value=".php"/>
-	<!--<br/><em style="color:#444">If a child theme is currently active, this file will be placed in the parent theme's  folder.</em><br/>-->
+	<span style="display:none;color:#BA1714;font-weight:bold;background:#F7B7B7;padding:5px" id="fileNameError">Please enter a valid filename.</span>
 	
 	<br/><br/>
 	
@@ -122,6 +122,30 @@ function file_duplicator_admin() {
 				jQuery("#templateNameWrapper").hide("fast");
 			}
 		});
+		
+		// form validation
+		function validate_file(data){
+			//data = data.replace(/^\s|\s$/g, ""); //trims string
+            return /([0-9a-z_-]+[\.][0-9a-z_-]{1,3})$/.test(data);
+		}
+		
+		
+		jQuery('#duplicateFile').submit(function() {
+			var filename = jQuery('#newFile').val();
+			
+			filenameCheck = /([0-9a-z_-]+[\.][0-9a-z_-]{1,3})$/.test(filename);
+			//alert(filenameCheck);
+			
+			if ( filenameCheck == false ) {
+				jQuery('#fileNameError').show();
+				return false;
+			}			
+		});
+		
+		jQuery('#newFile').keyup(function() {
+			jQuery('#fileNameError').hide();
+		});
+		
 		
 	});
 </script>
@@ -157,7 +181,7 @@ Template Name: '. $newTemplateName . '
 	
 	$newTemplateFile = fopen($newFilePath,"w");
 	
-	if ( isset($_POST['addTemplateID']) ) {  // only write identifier if checkbox is checked
+	if ( isset($_POST['addTemplateID']) && !empty($newTemplateName) ) {  // only write identifier if checked
 		fwrite($newTemplateFile, $templateIdentifier);
 	}
 	
