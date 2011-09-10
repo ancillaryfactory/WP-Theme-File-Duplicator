@@ -1,24 +1,16 @@
 === Theme File Duplicator ===
 Contributors: rockgod100
-Tags: theme, template, admin
+Tags: theme, template, admin, child themes, custom theming, template maker, theme page
 Requires at least: 3.0
 Tested up to: 3.2
-Stable tag: 1.1
+Stable tag: 1.3
 
 Clone an existing template file from the Wordpress admin area. 
 Go to Appearance -> Add Page Template
 
 == Description ==
 
-Clone an existing template file without uploading new files via FTP. Optionally, a user can add a template name, so that the new file will begin with
-`
-<?php
-/*
-Template Name: {My new template}
-*/
-?>
-`
-and will be automatically recognized as a new page template in the post editor. 
+Now fully compatible with child themes. Clone an existing template file without uploading new files via FTP. Optionally, a user can add a template name, so that the new file will be automatically recognized as a new page template in the post editor. If using a child theme, the new file will be copied from the parent theme folder into the child theme.
 
 
 == Installation ==
@@ -40,5 +32,6 @@ and will be automatically recognized as a new page template in the post editor.
 = 1.0 =
 * Initial release
 
-= 1.1 =
+= 1.3 =
 * New files are now added to STYLESHEETPATH, for compatibility with child themes
+* Only accept valid filenames

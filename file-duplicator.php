@@ -4,7 +4,7 @@
 Plugin Name: Theme File Duplicator
 Plugin URI: http://wordpress.org/extend/plugins/theme-file-duplicator/
 Description: Clone template files from the WP backend. Go to Appearance -> Add Page Template
-Version: 1.1
+Version: 1.3
 Author: Jon Schwab
 Author URI: http://www.ancillaryfactory.com
 License: GPL2
@@ -101,7 +101,7 @@ function file_duplicator_admin() {
 	
 	<label for="newFile"><strong>New filename:</strong></label><br/>
 	<input type="text" name="newFile" id="newFile" style="font-size:16px;padding:5px;text-align:right;width:250px" value=".php"/>
-	<span style="display:none;color:#BA1714;font-weight:bold;background:#F7B7B7;padding:5px" id="fileNameError">Please enter a valid filename.</span>
+	<span style="display:none;color:#BA1714;font-weight:bold;background:#F7D9D9;padding:5px" id="fileNameError">Please enter a valid filename.</span>
 	
 	<br/><br/>
 	
@@ -122,13 +122,6 @@ function file_duplicator_admin() {
 				jQuery("#templateNameWrapper").hide("fast");
 			}
 		});
-		
-		// form validation
-		function validate_file(data){
-			//data = data.replace(/^\s|\s$/g, ""); //trims string
-            return /([0-9a-z_-]+[\.][0-9a-z_-]{1,3})$/.test(data);
-		}
-		
 		
 		jQuery('#duplicateFile').submit(function() {
 			var filename = jQuery('#newFile').val();
