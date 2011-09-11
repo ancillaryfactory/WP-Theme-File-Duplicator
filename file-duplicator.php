@@ -40,12 +40,12 @@ function duplicator_admin_actions() {
 add_action('admin_menu', 'duplicator_admin_actions');
 
 if (isset($_POST['newFile'])) {
-	add_action('admin_footer', 'duplicationProcess');
+	add_action('admin_head', 'duplicationProcess');
 }
 
 
 function file_duplicator_admin() {   
-
+	$theme_data = get_theme_data(get_stylesheet_uri());
 ?>
 <!-- Success Messages -->
 <?php if (!empty($_POST['newFile'])) { 
@@ -64,7 +64,7 @@ function file_duplicator_admin() {
   <div id="icon-edit-pages" class="icon32" style="float:left"></div>
 <h2>Add new page template</h2>
 
-<form id="duplicateFile" method="post" action="admin.php?page=copy_theme_file" style="padding:45px 10px">
+<form id="duplicateFile" method="post" action="admin.php?page=copy_theme_file" style="padding:20px 20px">
 	
 	<label for="currentFile"><strong>Template file to copy:</strong></label><br/>
 	<select name="currentFile" id="currentFile">
