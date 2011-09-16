@@ -19,6 +19,14 @@ Now fully compatible with child themes. Clone an existing template file without 
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Go to Appearance -> Add Page Template 
 
+
+== Upgrade Notice ==
+
+= 1.3 =
+Strongly recommended. Full support for building child themes.
+
+
+
 == Frequently Asked Questions ==
 
 
@@ -27,11 +35,14 @@ Now fully compatible with child themes. Clone an existing template file without 
 
 1. Appearance -> Add Page Template
 
-== Changelog ==
 
-= 1.0 =
-* Initial release
+== Changelog ==
 
 = 1.3 =
 * New files are now added to STYLESHEETPATH, for compatibility with child themes
 * Only accept valid filenames
+
+= 1.0 =
+* Initial release
+
+

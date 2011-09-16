@@ -47,18 +47,6 @@ if (isset($_POST['newFile'])) {
 function file_duplicator_admin() {   
 	$theme_data = get_theme_data(get_stylesheet_uri());
 ?>
-<!-- Success Messages -->
-<?php if (!empty($_POST['newFile'])) { 
-	$newFile = str_replace(' ', '-', $_POST['newFile']);
-	$newFile = filter_var($newFile, FILTER_SANITIZE_URL);
-	?>
-	<!-- <div class="updated fade"><p><strong><?php print $newFile . ' added to ' . $theme_data['Title'] . ' theme. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>  -->
-<?php } ?>
-
-
-
-<!-- End Success Messages -->
-
 
 <div class="wrap"> 
   <div id="icon-edit-pages" class="icon32" style="float:left"></div>
@@ -156,8 +144,7 @@ Template Name: '. $newTemplateName . '
 ?>
 
 ';
-	$newFile = str_replace(' ', '-', $_POST['newFile']);
-	$newFile = filter_var($newFile, FILTER_SANITIZE_URL);
+	$newFile = sanitize_title($_POST['newFile']);
 	
 	$fileToCopy = $_POST['currentFile'];
 	$templateDirectory = TEMPLATEPATH . '/'. $fileToCopy;
@@ -181,7 +168,7 @@ Template Name: '. $newTemplateName . '
 	
 	// success/error message
 	if ( $written != false ) { ?>
-		<div class="updated fade"><p><strong><?php print $newFile . ' added to ' . $theme_data['Title'] . ' theme. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>
+		<div class="updated"><p><strong><?php print $newFile . ' added to ' . $theme_data['Title'] . ' theme. <a href="' . admin_url('theme-editor.php') . '">Take a look</a>.'; ?></strong></p></div>
 	<?php } else { ?>
 		<div class="error"><p><strong>ERROR: Unable to create new theme file</strong></p></div>
 	<?php } 
